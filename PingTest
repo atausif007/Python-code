@@ -1,0 +1,24 @@
+import os
+import time
+from tqdm import tqdm
+x = open('C:\\Users\\Tausif\\Pictures\\Ping\\reachable.txt', 'w+')
+y = open('C:\\Users\\Tausif\\Pictures\\Ping\\not-reachable.txt', 'w+')
+def main():
+    #ip_list = ['8.8.8.8', '8.8.4.4', '172.0.0.1', '0.0.0.0','192.168.1.26']
+    ip_list = open('C:\\Users\\Tausif\\Pictures\\Ping\\IP.txt', 'r')
+
+    for ip in ip_list:
+        response = os.popen(f"ping -n 2 {ip}").read()
+    #print(response)
+        if "Received = 2" in response:
+            #print(f"UP {ip} Ping successful")
+            x.write(f'{ip}')
+            for i in tqdm(ip):
+                time.sleep(2)
+        else:
+            #print(f"Down {ip} Ping unsuccessful")
+            y.write(f'{ip}')
+            for i in tqdm(ip):
+                time.sleep(2)
+if __name__=='__main__':
+    main()
